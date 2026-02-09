@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap');
 
 * {
     margin: 0px;
@@ -12,7 +13,7 @@ body {
     background: linear-gradient(135deg, #000000 0%, #1a0000 25%, #000000 50%, #1a0000 75%, #000000 100%);
     background-size: 400% 400%;
     animation: hellBackground 15s ease infinite;
-    font-family: 'Times New Roman', serif;
+    font-family: 'Lora', 'Times New Roman', serif;
     overflow-y: auto;
 }
 
@@ -27,14 +28,14 @@ body {
     width: 85%;
     max-width: 900px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(30, 0, 0, 0.75));
-    color: #ff6666;
+    color: #ff8866;
     margin: auto;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    padding: 2rem;
+    padding: 2.5rem;
     text-align: center;
     border: 3px solid #ff0000;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 
         0 0 30px rgba(255, 0, 0, 0.5),
         inset 0 0 30px rgba(139, 0, 0, 0.3),
@@ -72,12 +73,15 @@ h1 {
 }
 
 h2 {
-    font-size: 1.5rem;
-    color: #ff8080;
+    font-size: 1.3rem;
+    color: #ffcc99;
     text-shadow: 
         0 0 5px #ff0000,
         0 0 10px #8b0000;
-    font-family: 'Creepster', cursive;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
 }
 
 @keyframes flickerText {
@@ -97,48 +101,63 @@ h2 {
 }
 
 p {
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-align: center;
-    color: #ffaaaa;
-    margin: 0.8rem 0;
-    line-height: 1.6;
+    color: #ffbbaa;
+    margin: 1rem 0;
+    line-height: 1.7;
+}
+
+label {
+    display: block;
+    color: #ffcc99;
+    font-weight: 600;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    text-align: left;
 }
 
 hr {
-    border: 2px solid #8b0000;
+    border: none;
     background: linear-gradient(90deg, transparent, #ff0000, transparent);
     height: 2px;
     margin: 1.5rem 0;
 }
 
-textarea {
-    height: 180px;
+textarea, input[type="text"], input[type="email"], input[type="file"], select {
     width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-    font-family: 'Times New Roman', serif;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    font-family: 'Lora', 'Times New Roman', serif;
     background: rgba(0, 0, 0, 0.9);
     color: #ffcccc;
-    border: 2px solid #ff0000;
-    border-radius: 5px;
+    border: 2px solid #8b0000;
+    border-radius: 6px;
     box-shadow: 
         0 0 10px rgba(255, 0, 0, 0.3),
         inset 0 0 10px rgba(139, 0, 0, 0.2);
     resize: vertical;
     transition: all 0.3s;
+    margin-bottom: 0.8rem;
 }
 
-textarea:focus {
+textarea {
+    height: 180px;
+    resize: vertical;
+}
+
+textarea:focus, input:focus, select:focus {
     outline: none;
-    border-color: #ffff00;
+    border-color: #ffcc00;
     box-shadow: 
         0 0 20px rgba(255, 0, 0, 0.5),
         inset 0 0 15px rgba(255, 0, 0, 0.1);
     color: #ffffff;
 }
 
-textarea::placeholder {
+textarea::placeholder, input::placeholder {
     color: #666666;
 }
 
