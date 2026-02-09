@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Aparichit - Admin Dashboard</title>
+    <link rel="icon" href="Images/Icon.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000000 0%, #1a0000 25%, #000000 50%, #1a0000 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: hellBackground 15s ease infinite;
+            color: #fff;
+            font-family: 'Times New Roman', serif;
+            padding: 2rem;
+        }
+
+        @keyframes hellBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(30, 0, 0, 0.8));
+            border: 3px solid #ff0000;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: #ff0000;
+            text-shadow: 0 0 15px #ff0000;
+            margin-bottom: 2rem;
+            font-family: 'Creepster', cursive;
+            border-bottom: 2px solid #ff0000;
+            padding-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.4), rgba(100, 0, 0, 0.2));
+            border: 2px solid #ff0000;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #ffcc00;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .controls {
+            margin: 2rem 0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #ff0000, #8b0000);
+            color: #000;
+            border: 2px solid #ff0000;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            transform: scale(1.05);
+        }
+
+        .complaints-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+        }
+
+        .complaints-table th {
+            background: linear-gradient(45deg, #ff0000, #8b0000);
+            color: #000;
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid #ff0000;
+        }
+
+        .complaints-table td {
+            padding: 0.8rem;
+            border: 1px solid #8b0000;
+            color: #ffaaaa;
+        }
+
+        .complaints-table tr:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .severity-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .severity-high {
+            background: #ff0000;
+            color: #000;
+        }
+
+        .severity-medium {
+            background: #ff8800;
+            color: #000;
+        }
+
+        .severity-low {
+            background: #ffcc00;
+            color: #000;
+        }
+
+        .status-pending {
+            color: #ffaa66;
+        }
+
+        .status-processed {
+            color: #00ff00;
+        }
+
+        .chart-container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .chart-bar {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff0000;
+        }
+
+        .chart-bar-fill {
+            height: 25px;
+            background: linear-gradient(90deg, #ff0000, #8b0000);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #666, #333);
+        }
+
+        .back-btn:hover {
+            box-shadow: 0 0 15px rgba(100, 100, 100, 0.5);
+        }
+
+        .warning {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            color: #ffaaaa;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .complaints-table {
+                font-size: 0.85rem;
+            }
+
+            .complaints-table th,
+            .complaints-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>⚡ नरक की जानकारी - APARICHIT ADMIN CONSOLE ⚡</h1>
+
+        <div class="controls">
+            <button onclick="refreshData()">🔄 REFRESH</button>
+            <button onclick="exportJSON()">💾 EXPORT JSON</button>
+            <button onclick="exportCSV()">📊 EXPORT CSV</button>
+            <button onclick="clearAllData()" class="delete-btn">🗑️ CLEAR ALL (BACKUP FIRST!)</button>
+            <button onclick="promptEnableEncryption()">🔐 Enable Storage Encryption</button>
+            <button onclick="promptUnlockEncryption()">🔓 Unlock Encrypted Storage</button>
+            <a href="Home Page.html" style="text-decoration: none;">
+                <button class="back-btn">← BACK TO HOME</button>
+            </a>
+        </div>
+
+        <div id="statsContainer" class="stats-grid"></div>
+
+        <div class="warning">
+            ⚠️ यह डेटा ब्राउज़र के localStorage में संग्रहीत है। यह डेटा स्थायी है।
+            <br>⚠️ WARNING: This data is stored in browser's localStorage. Clearing browser data will delete this.
+        </div>
+
+        <div class="chart-container">
+            <h2 style="color: #ffcc00; margin-bottom: 1rem;">📊 पाप श्रेणी विश्लेषण</h2>
+            <div id="chartContainer"></div>
+        </div>
+
+        <div style="margin: 2rem 0;">
+            <h2 style="color: #ffcc00; margin-bottom: 1rem;">📋 सभी शिकायतें (ALL COMPLAINTS)</h2>
+            <div id="tableContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Protect admin page: prefer server JWT auth, fallback to client-side flag
+        (async function(){
+            const token = localStorage.getItem('aparichitAdminToken');
+            if (token) {
+                try {
+                    const r = await fetch('http://localhost:4000/api/complaints', { headers: { 'Authorization': 'Bearer ' + token } });
+                    if (r.ok) return; // token valid, proceed
+                } catch(e) { /* server not reachable or token invalid */ }
+            }
+
+            // fallback: client-side admin flag
+            if (localStorage.getItem('aparichitAdminAuth')) return;
+
+            const pwd = prompt('Admin password required to view this page:');
+            if (!pwd) { alert('Access denied'); window.location.href = 'Home Page.html'; return; }
+
+            // Try server login first
+            try {
+                const res = await fetch('http://localhost:4000/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'admin', password: pwd }) });
+                if (res.ok) {
+                    const j = await res.json();
+                    localStorage.setItem('aparichitAdminToken', j.token);
+                    return;
+                }
+            } catch (e) { /* ignore */ }
+
+            // Final fallback: legacy client password
+            if (pwd !== 'aparichit@2026') {
+                alert('Access denied');
+                window.location.href = 'Home Page.html';
+            } else {
+                localStorage.setItem('aparichitAdminAuth','1');
+            }
+        })();
+
+        // --- Storage Encryption Helpers (Web Crypto) ---
+        const textEncoder = new TextEncoder();
+        const textDecoder = new TextDecoder();
+
+        function bufToBase64(buf) {
+            const bytes = new Uint8Array(buf);
+            let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+            return btoa(binary);
+        }
+
+        function base64ToBuf(b64) {
+            const binary = atob(b64);
+            const len = binary.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i);
+            return bytes.buffer;
+        }
+
+        async function getKeyFromPassword(password, salt) {
+            const keyMaterial = await crypto.subtle.importKey('raw', textEncoder.encode(password), {name: 'PBKDF2'}, false, ['deriveKey']);
+            return crypto.subtle.deriveKey({name: 'PBKDF2', salt: salt, iterations: 150000, hash: 'SHA-256'}, keyMaterial, {name: 'AES-GCM', length: 256}, false, ['encrypt','decrypt']);
+        }
+
+        async function encryptText(plainText, password) {
+            const salt = crypto.getRandomValues(new Uint8Array(16));
+            const iv = crypto.getRandomValues(new Uint8Array(12));
+            const key = await getKeyFromPassword(password, salt);
+            const cipher = await crypto.subtle.encrypt({name: 'AES-GCM', iv: iv}, key, textEncoder.encode(plainText));
+            return JSON.stringify({salt: bufToBase64(salt), iv: bufToBase64(iv), data: bufToBase64(cipher)});
+        }
+
+        async function decryptText(encryptedJSON, password) {
+            try {
+                const obj = JSON.parse(encryptedJSON);
+                const salt = base64ToBuf(obj.salt);
+                const iv = base64ToBuf(obj.iv);
+                const data = base64ToBuf(obj.data);
+                const key = await getKeyFromPassword(password, new Uint8Array(salt));
+                const plainBuf = await crypto.subtle.decrypt({name: 'AES-GCM', iv: new Uint8Array(iv)}, key, data);
+                return textDecoder.decode(plainBuf);
+            } catch (e) {
+                throw new Error('Decryption failed');
+            }
+        }
+
+        async function encryptStorageWithPassword(password) {
+            const complaints = localStorage.getItem('aparichitComplaints') || '[]';
+            const analytics = localStorage.getItem('aparichitAnalytics') || '{}';
+            const payload = JSON.stringify({complaints: JSON.parse(complaints), analytics: JSON.parse(analytics)});
+            const encrypted = await encryptText(payload, password);
+            localStorage.setItem('aparichitComplaints_encrypted', encrypted);
+            localStorage.removeItem('aparichitComplaints');
+            localStorage.removeItem('aparichitAnalytics');
+            localStorage.setItem('aparichitStorageEncrypted', '1');
+            alert('Storage encrypted locally. Keep your password safe.');
+            location.reload();
+        }
+
+        async function decryptStorageWithPassword(password) {
+            const blob = localStorage.getItem('aparichitComplaints_encrypted');
+            if (!blob) throw new Error('No encrypted storage found');
+            const plain = await decryptText(blob, password);
+            const obj = JSON.parse(plain);
+            // Do not automatically write back to localStorage; return the object for viewing
+            return obj;
+        }
+
+        function promptEnableEncryption() {
+            const p1 = prompt('Enter a PASS PHRASE to encrypt storage (write it down).');
+            if (!p1) return;
+            const p2 = prompt('Confirm pass phrase:');
+            if (p1 !== p2) { alert('Pass phrases did not match. Aborted.'); return; }
+            encryptStorageWithPassword(p1).catch(e => alert('Encryption failed: ' + e.message));
+        }
+
+        function promptUnlockEncryption() {
+            if (!localStorage.getItem('aparichitStorageEncrypted')) { alert('Storage is not encrypted. Nothing to unlock.'); return; }
+            const pwd = prompt('Enter pass phrase to unlock encrypted storage:');
+            if (!pwd) return;
+            decryptStorageWithPassword(pwd).then(obj => {
+                // Render a simple view in a new window to avoid dropping encrypted data to plain localStorage
+                const w = window.open('', '_blank');
+                if (!w) { alert('Popup blocked. Please allow popups.'); return; }
+                const html = `<pre style="white-space:pre-wrap; font-family:monospace;">${JSON.stringify(obj, null, 2)}</pre>`;
+                w.document.write('<title>Decrypted Complaints</title>');
+                w.document.body.style.background = '#000';
+                w.document.body.style.color = '#fff';
+                w.document.body.innerHTML = '<h2 style="color:#ffcc00">Decrypted storage preview</h2>' + html + '<p style="color:#f88">This view is ephemeral; data remains encrypted in localStorage.</p>';
+            }).catch(e => alert('Unlock failed: ' + e.message));
+        }
+
+        function refreshData() {
+            location.reload();
+        }
+
+        function getComplaintsData() {
+            return JSON.parse(localStorage.getItem('aparichitComplaints') || '[]');
+        }
+
+        function getAnalyticsData() {
+            return JSON.parse(localStorage.getItem('aparichitAnalytics') || '{}');
+        }
+
+        function updateStats() {
+            const complaints = getComplaintsData();
+            const analytics = getAnalyticsData();
+            
+            const totalComplaints = complaints.length;
+            const avgSeverity = complaints.length > 0 ? 
+                (complaints.reduce((sum, c) => sum + c.severity, 0) / complaints.length).toFixed(2) : 0;
+            const maxSeverity = complaints.length > 0 ? 
+                Math.max(...complaints.map(c => c.severity)) : 0;
+            
+            const statsHTML = `
+                <div class="stat-card">
+                    <h3>कुल शिकायतें</h3>
+                    <div class="number">${totalComplaints}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>औसत गंभीरता</h3>
+                    <div class="number">${avgSeverity}</div>
+                </div>
+                <div class="stat-card">
+                    <h3>अधिकतम गंभीरता</h3>
+                    <div class="number">${maxSeverity}/10</div>
+                </div>
+                <div class="stat-card">
+                    <h3>अद्वितीय श्रेणियां</h3>
+                    <div class="number">${Object.keys(analytics).length}</div>
+                </div>
+            `;
+            
+            document.getElementById('statsContainer').innerHTML = statsHTML;
+        }
+
+        function updateChart() {
+            const analytics = getAnalyticsData();
+            const maxCount = Math.max(...Object.values(analytics), 1);
+            
+            let chartHTML = '';
+            Object.keys(analytics).sort((a, b) => analytics[b] - analytics[a]).forEach(category => {
+                const count = analytics[category];
+                const percentage = (count / maxCount) * 100;
+                chartHTML += `
+                    <div class="chart-bar">
+                        <strong>${category}</strong>
+                        <div class="chart-bar-fill" style="width: ${percentage}%; max-width: 100%;">
+                            ${count}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('chartContainer').innerHTML = chartHTML || '<p style="color: #888;">No data yet</p>';
+        }
+
+        function updateTable() {
+            const complaints = getComplaintsData();
+            
+            if (complaints.length === 0) {
+                document.getElementById('tableContainer').innerHTML = '<p style="color: #888;">No complaints recorded yet.</p>';
+                return;
+            }
+
+            let tableHTML = '<table class="complaints-table"><thead><tr>' +
+                '<th>ID</th>' +
+                '<th>समय (Time)</th>' +
+                '<th>श्रेणी (Category)</th>' +
+                '<th>गंभीरता (Severity)</th>' +
+                '<th>स्थिति (Status)</th>' +
+                '<th>शिकायत (Complaint)</th>' +
+                '</tr></thead><tbody>';
+
+            complaints.forEach((complaint, index) => {
+                const severityClass = complaint.severity >= 8 ? 'severity-high' : 
+                                     complaint.severity >= 6 ? 'severity-medium' : 'severity-low';
+                const statusClass = complaint.status === 'PENDING' ? 'status-pending' : 'status-processed';
+                
+                tableHTML += `<tr>
+                    <td>${complaint.id}</td>
+                    <td>${complaint.timestamp}</td>
+                    <td><strong>${complaint.category}</strong></td>
+                    <td><span class="severity-badge ${severityClass}">${complaint.severity}/10</span></td>
+                    <td><span class="${statusClass}">${complaint.status}</span></td>
+                    <td style="max-width: 300px; word-wrap: break-word;">"${complaint.text.substring(0, 100)}..."</td>
+                </tr>`;
+            });
+
+            tableHTML += '</tbody></table>';
+            document.getElementById('tableContainer').innerHTML = tableHTML;
+        }
+
+        function exportJSON() {
+            const complaints = getComplaintsData();
+            const analytics = getAnalyticsData();
+            const exportData = {
+                exportDate: new Date().toISOString(),
+                totalComplaints: complaints.length,
+                complaints: complaints,
+                analytics: analytics
+            };
+
+            const jsonString = JSON.stringify(exportData, null, 2);
+            downloadFile(jsonString, `aparichit_complaints_${new Date().toISOString().split('T')[0]}.json`, 'application/json');
+        }
+
+        function exportCSV() {
+            const complaints = getComplaintsData();
+            
+            if (complaints.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            let csv = 'ID,Timestamp,Category,Severity,Status,Complaint Text\n';
+            complaints.forEach(complaint => {
+                const text = complaint.text.replace(/"/g, '""');
+                csv += `"${complaint.id}","${complaint.timestamp}","${complaint.category}",${complaint.severity},"${complaint.status}","${text}"\n`;
+            });
+
+            downloadFile(csv, `aparichit_complaints_${new Date().toISOString().split('T')[0]}.csv`, 'text/csv');
+        }
+
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type: type });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ Are you ABSOLUTELY sure? This will DELETE ALL COMPLAINTS permanently!\n\nPlease export your data first!\n\nType YES to confirm')) {
+                localStorage.removeItem('aparichitComplaints');
+                localStorage.removeItem('aparichitAnalytics');
+                alert('All data cleared!');
+                location.reload();
+            }
+        }
+
+        // Load data on page load
+        window.addEventListener('load', function() {
+            updateStats();
+            updateChart();
+            updateTable();
+        });
+    </script>
+</body>
+</html>

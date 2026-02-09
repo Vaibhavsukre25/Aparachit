@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Aparichit - Completed</title>
+    <link rel="icon" href="Images/Icon.jpg">
+    <style>
+        body{font-family: 'Times New Roman', serif; background: linear-gradient(135deg,#000,#1a0000); color:#fff; margin:0; padding:2rem;}
+        .card{max-width:900px; margin:2rem auto; background:rgba(0,0,0,0.85); border:3px solid #8b0000; padding:2rem; border-radius:8px; text-align:center}
+        h1{color:#ff4444; font-size:2.2rem; text-shadow:0 0 10px #ff0000}
+        p{color:#ffccaa}
+        .buttons{display:flex; gap:1rem; justify-content:center; margin-top:1.5rem; flex-wrap:wrap}
+        a.button{background:linear-gradient(45deg,#ff0000,#8b0000); color:#000; padding:0.8rem 1.2rem; border-radius:6px; text-decoration:none; font-weight:bold}
+        .notice{background:rgba(255,0,0,0.06); border-left:4px solid #ff4444; padding:1rem; margin-top:1rem; color:#ffd9d9}
+        .receipt{background:rgba(0,0,0,0.6); text-align:left; padding:1rem; margin-top:1rem; border-radius:6px; color:#fff}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>आपकी शिकायत दर्ज हो गई है</h1>
+        <p class="lead">आपकी शिकायत प्रक्रिया शुरू हो गई है — आपकी समस्या 15 दिनों के भीतर हल करने का प्रयास किया जाएगा।</p>
+        <div class="notice">Stay stunned — आदेश पारित किया जा चुका है।</div>
+
+        <div class="receipt" id="receiptBox" style="display:none;">
+            <strong>शिकायत रिकॉर्ड:</strong>
+            <div id="receiptContent"></div>
+        </div>
+
+        <div class="buttons">
+            <a class="button" href="Home Page.html">🏠 Go to Home Page</a>
+            <a class="button" href="books.html" id="booksLink">📚 Read Hindu Books</a>
+            <a class="button" id="downloadReceipt">💾 Download Receipt</a>
+        </div>
+    </div>
+
+    <script>
+        // show finished complaint receipt if exists
+        (function(){
+            const data = sessionStorage.getItem('finishedComplaint') || sessionStorage.getItem('currentComplaint');
+            if (!data) return;
+            try {
+                const c = JSON.parse(data);
+                const box = document.getElementById('receiptBox');
+                const content = document.getElementById('receiptContent');
+                box.style.display = 'block';
+                content.innerHTML = `
+                    <p><strong>ID:</strong> ${c.id}</p>
+                    <p><strong>Reporter:</strong> ${c.reporterName || 'N/A'} (${c.reporterEmail || 'N/A'})</p>
+                    <p><strong>Target:</strong> ${c.targetName || 'N/A'} (${c.identifier || 'N/A'})</p>
+                    <p><strong>Category:</strong> ${c.category}</p>
+                    <p><strong>Severity:</strong> ${c.severity}/10</p>
+                    <p><strong>Timestamp:</strong> ${c.timestamp}</p>
+                `;
+
+                // download receipt button
+                document.getElementById('downloadReceipt').addEventListener('click', function(){
+                    const json = JSON.stringify(c, null, 2);
+                    const blob = new Blob([json], {type:'application/json'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a'); a.href = url; a.download = `Aparichit_receipt_${c.id}.json`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+                });
+
+            } catch(e){ console.error(e); }
+        })();
+    </script>
+</body>
+</html>

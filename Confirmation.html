@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Aparichit - Your Punishment</title>
+    <link rel="icon" href="Images/Icon.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            background: linear-gradient(135deg, #000000 0%, #1a0000 25%, #000000 50%, #1a0000 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: hellBackground 15s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Times New Roman', serif;
+            overflow: auto; /* allow page scrolling */
+            padding: 2rem 0;
+        }
+
+        @keyframes hellBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(30, 0, 0, 0.8));
+            border: 4px solid #ff0000;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 
+                0 0 40px rgba(255, 0, 0, 0.6),
+                inset 0 0 30px rgba(139, 0, 0, 0.3),
+                0 0 80px rgba(255, 0, 0, 0.3);
+            animation: containerGlow 4s ease-in-out infinite;
+            max-height: 85vh;
+            overflow: auto; /* make inner container scrollable */
+        }
+
+        @keyframes containerGlow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 40px rgba(255, 0, 0, 0.6),
+                    inset 0 0 30px rgba(139, 0, 0, 0.3),
+                    0 0 80px rgba(255, 0, 0, 0.3);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 60px rgba(255, 0, 0, 0.8),
+                    inset 0 0 40px rgba(255, 0, 0, 0.15),
+                    0 0 100px rgba(255, 0, 0, 0.5);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff0000;
+            text-shadow: 
+                0 0 15px #ff0000,
+                0 0 30px #8b0000,
+                0 0 45px #ff0000;
+            margin-bottom: 1rem;
+            font-family: 'Creepster', cursive;
+            animation: flickerHeading 3s ease-in-out infinite;
+            letter-spacing: 3px;
+        }
+
+        @keyframes flickerHeading {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { 
+                opacity: 1;
+                text-shadow: 
+                    0 0 15px #ff0000,
+                    0 0 30px #8b0000,
+                    0 0 45px #ff0000;
+            }
+            20%, 24%, 55% { 
+                opacity: 0.7;
+                text-shadow: 
+                    0 0 8px #ff0000,
+                    0 0 15px #8b0000;
+            }
+        }
+
+        .video-box {
+            height: 450px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            border: 3px solid #8b0000;
+            border-radius: 8px;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(139, 0, 0, 0.3);
+        }
+
+        video {
+            max-height: 100%;
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .punishment-section {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.4), rgba(255, 0, 0, 0.1));
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 3px solid #ff0000;
+            border-radius: 8px;
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .punishment-section h2 {
+            color: #ffcc00;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .punishment-section p {
+            color: #ffaaaa;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0.8rem 0;
+        }
+
+        .complaint-box {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 5px solid #ffcc00;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .complaint-box h3 {
+            color: #ffcc00;
+            margin-bottom: 0.8rem;
+        }
+
+        .complaint-box p {
+            color: #ffffff;
+            font-style: italic;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff0000, #8b0000);
+            color: #000;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 1rem 0;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Creepster', cursive;
+            background: linear-gradient(135deg, #ff0000, #8b0000);
+            color: #000;
+            border: 2px solid #ff0000;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .database-link {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #8b0000;
+        }
+
+        .database-link a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .database-link a:hover {
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .timestamp {
+            color: #888888;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .video-box {
+                height: 300px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ आपका न्याय ⚡</h1>
+        <p style="color: #ff8080; font-size: 1.2rem; margin-bottom: 1.5rem;">YOUR DESTINY IS SEALED</p>
+        <div style="margin-top:0.5rem;">
+            <button id="enableSoundConfirm" style="background:linear-gradient(45deg,#222,#550); color:#fff;">Enable Sound</button>
+        </div>
+
+        <div class="video-box">
+            <video src="Videos/Video 2.mp4" autoplay muted style="width: 100%; height: 100%; object-fit: cover;"></video>
+        </div>
+
+        <div class="punishment-section" id="punishmentDisplay">
+            <h2>🔥 गरुड़ पुराण द्वारा निर्धारित दंड 🔥</h2>
+            <p id="punishmentText">आपके पाप के लिए नरक की निर्ममता आपका इंतज़ार कर रही है...</p>
+            <div class="status-badge" id="statusBadge">PENDING JUDGMENT</div>
+        </div>
+
+        <div class="complaint-box" id="complaintBox" style="display: none;">
+            <h3>📝 दर्ज की गई समस्या:</h3>
+            <p id="complaintText"></p>
+            <p style="margin-top: 0.8rem;"><strong>श्रेणी:</strong> <span id="categoryText"></span></p>
+            <p style="margin-top: 0.5rem;"><strong>गंभीरता:</strong> <span id="severityText"></span>/10</p>
+            <p class="timestamp" id="timestampText"></p>
+        </div>
+
+        <div class="buttons">
+            <button onclick="viewDatabase()">📊 VIEW ALL COMPLAINTS DATABASE</button>
+            <button onclick="goHome()">🏠 RETURN HOME</button>
+            <button onclick="submitAnother()">➕ SUBMIT ANOTHER COMPLAINT</button>
+            <button id="finishBtn" disabled style="background:linear-gradient(45deg,#222,#000); color:#fff;">✅ FINISH</button>
+        </div>
+
+        <div class="database-link">
+            <p style="color: #ffaa66;">💀 सभी पाप दर्ज हैं। कोई भी बच नहीं सकता। 💀</p>
+            <p style="color: #888888; font-size: 0.9rem; margin-top: 1rem;">Browser Database: localStorage → aparichitComplaints</p>
+        </div>
+    </div>
+
+    <script>
+        // enable audio button for this page
+        document.addEventListener('DOMContentLoaded', function(){
+            const btn = document.getElementById('enableSoundConfirm');
+            if (btn) btn.addEventListener('click', function(){
+                try { localStorage.setItem('aparichitAudioEnabled','1'); const v = document.querySelector('video'); if (v) { v.muted = false; v.play().catch(()=>{}); } const a = document.querySelector('audio'); if (a) { a.muted = false; a.play().catch(()=>{}); } alert('Sound enabled'); } catch(e){}
+            });
+        });
+        // Display current complaint and punishment
+        function displayComplaint() {
+            const complaintData = sessionStorage.getItem('currentComplaint');
+            if (complaintData) {
+                const complaint = JSON.parse(complaintData);
+                
+                // Display punishment
+                document.getElementById('punishmentText').innerHTML = `
+                    <strong style="color: #ffcc00;">दंड:</strong> ${complaint.punishment}<br><br>
+                    <em style="color: #ffaaaa;">यह दंड आपके पाप के लिए कभी कम नहीं होगा।</em>
+                `;
+                
+                // Display complaint details
+                if (document.getElementById('complaintBox')) {
+                    document.getElementById('complaintBox').style.display = 'block';
+                    document.getElementById('complaintText').textContent = complaint.text;
+                    document.getElementById('categoryText').textContent = complaint.category;
+                    document.getElementById('severityText').textContent = complaint.severity;
+                    document.getElementById('timestampText').textContent = 'दर्ज समय: ' + complaint.timestamp;
+                    // optional fields
+                    if (complaint.reporterName) {
+                        const el = document.createElement('p'); el.innerHTML = `<strong>Reporter:</strong> ${complaint.reporterName} (${complaint.reporterEmail || 'n/a'})`; document.getElementById('complaintBox').appendChild(el);
+                    }
+                    if (complaint.targetName) {
+                        const el2 = document.createElement('p'); el2.innerHTML = `<strong>Target:</strong> ${complaint.targetName} (${complaint.identifier || 'n/a'})`; document.getElementById('complaintBox').appendChild(el2);
+                    }
+                    if (complaint.attachments && complaint.attachments.length) {
+                        const attDiv = document.createElement('div');
+                        attDiv.style.marginTop = '0.8rem';
+                        attDiv.innerHTML = '<strong>Attachments:</strong>';
+                        complaint.attachments.forEach((a, i) => {
+                            const node = document.createElement('div');
+                            if (a.type && a.type.startsWith('image')) {
+                                node.innerHTML = `<div style="margin-top:0.5rem;"><img src="${a.data}" style="max-width:100%; height:auto; border:2px solid #8b0000;" alt="attachment-${i}"></div>`;
+                            } else if (a.type && a.type.startsWith('video')) {
+                                node.innerHTML = `<div style="margin-top:0.5rem;"><video src="${a.data}" controls style="max-width:100%; height:auto; border:2px solid #8b0000;"></video></div>`;
+                            } else {
+                                node.textContent = a.name || 'attachment';
+                            }
+                            attDiv.appendChild(node);
+                        });
+                        document.getElementById('complaintBox').appendChild(attDiv);
+                    }
+                }
+
+                // Update status badge
+                const severityLevel = complaint.severity >= 9 ? 'MAXIMUM PUNISHMENT' : 
+                                     complaint.severity >= 7 ? 'SEVERE PUNISHMENT' : 'PENDING';
+                document.getElementById('statusBadge').textContent = severityLevel;
+            }
+        }
+
+        function viewDatabase() {
+            // Access the database and show analytics
+            // require admin auth
+            if (!localStorage.getItem('aparichitAdminAuth')) { alert('Admin only: please login from home.'); return; }
+            const complaints = JSON.parse(localStorage.getItem('aparichitComplaints') || '[]');
+            const analytics = JSON.parse(localStorage.getItem('aparichitAnalytics') || '{}');
+            alert(`कुल शिकायतें दर्ज: ${complaints.length}\n\nपाप श्रेणी विश्लेषण:\n${JSON.stringify(analytics, null, 2)}\n\nसभी शिकायतें: ${JSON.stringify(complaints.map(c => ({category: c.category, time: c.timestamp})), null, 2)}`);
+        }
+
+        function goHome() {
+            sessionStorage.removeItem('currentComplaint');
+            window.location.href = 'Home Page.html';
+        }
+
+        function submitAnother() {
+            sessionStorage.removeItem('currentComplaint');
+            window.location.href = 'Request.html';
+        }
+
+        // Enable Finish button only after user scrolls through the container
+        (function setupFinishOnScroll(){
+            const container = document.querySelector('.container');
+            const finishBtn = document.getElementById('finishBtn');
+            if (!container || !finishBtn) return;
+
+            function checkScroll() {
+                // if scrolled to bottom of container, enable button
+                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 20) {
+                    finishBtn.disabled = false;
+                    finishBtn.style.opacity = '1';
+                }
+            }
+
+            // initial check (in case small content)
+            checkScroll();
+
+            container.addEventListener('scroll', checkScroll);
+            finishBtn.addEventListener('click', function(){
+                // navigate to end page and pass complaint id
+                const c = sessionStorage.getItem('currentComplaint');
+                if (c) sessionStorage.setItem('finishedComplaint', c);
+                // clear current complaint to avoid accidental resubmit
+                sessionStorage.removeItem('currentComplaint');
+                window.location.href = 'End.html';
+            });
+        })();
+
+        // Load complaint on page load
+        window.addEventListener('load', displayComplaint);
+    </script>
+</body>
+</html>

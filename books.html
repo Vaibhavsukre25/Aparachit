@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Hindu Books - Aparichit</title>
+    <link rel="icon" href="Images/Icon.jpg">
+    <style>
+        body{font-family: 'Times New Roman', serif; background:linear-gradient(135deg,#000,#1a0000); color:#fff; margin:0; padding:2rem}
+        .wrap{max-width:1100px; margin:0 auto}
+        h1{color:#ff4444}
+        .grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
+        .card{background:rgba(0,0,0,0.7); padding:1rem; border:2px solid #8b0000; border-radius:6px}
+        a.btn{display:inline-block; margin-top:0.6rem; padding:0.5rem 0.8rem; background:linear-gradient(45deg,#ffcc00,#ff8800); color:#000; text-decoration:none; border-radius:4px}
+        iframe.viewer{width:100%; height:70vh; border:2px solid #8b0000; margin-top:1rem}
+        @media(max-width:768px){ .grid{grid-template-columns:1fr} iframe.viewer{height:50vh} }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>Hindu Books - ऑनलाइन और डाउनलोड</h1>
+        <p class="lead">संग्रह: Garuda Purana, Mahabharata, Ramayana और अन्य प्रामाणिक स्रोत। क्लिक करें और इन-ब्राउज़र व्यूअर में पढ़ें या नया टैब खोलकर डाउनलोड करें।</p>
+
+        <div class="grid">
+            <div class="card" data-url="https://www.sacred-texts.com/hin/gp/index.htm">
+                <div class="cover">GP</div>
+                <h3>Garuda Purana</h3>
+                <p class="muted">Traditional Purana — sacred-texts mirror</p>
+                <div class="card-actions">
+                    <button onclick="loadViewer('https://www.sacred-texts.com/hin/gp/index.htm')">Open in Viewer</button>
+                    <a class="btn" target="_blank" href="https://www.sacred-texts.com/hin/gp/index.htm">Open in New Tab</a>
+                </div>
+            </div>
+
+            <div class="card" data-url="https://www.sacred-texts.com/hin/maha/index.htm">
+                <div class="cover">MB</div>
+                <h3>Mahabharata</h3>
+                <p class="muted">Epic — comprehensive translation</p>
+                <div class="card-actions">
+                    <button onclick="loadViewer('https://www.sacred-texts.com/hin/maha/index.htm')">Open in Viewer</button>
+                    <a class="btn" target="_blank" href="https://www.sacred-texts.com/hin/maha/index.htm">Open in New Tab</a>
+                </div>
+            </div>
+
+            <div class="card" data-url="https://www.sacred-texts.com/hin/ramayana/index.htm">
+                <div class="cover">RV</div>
+                <h3>Ramayana</h3>
+                <p class="muted">Valmiki's Ramayana — classic text</p>
+                <div class="card-actions">
+                    <button onclick="loadViewer('https://www.sacred-texts.com/hin/ramayana/index.htm')">Open in Viewer</button>
+                    <a class="btn" target="_blank" href="https://www.sacred-texts.com/hin/ramayana/index.htm">Open in New Tab</a>
+                </div>
+            </div>
+
+            <div class="card" data-url="https://www.gutenberg.org/">
+                <div class="cover">PG</div>
+                <h3>More Resources</h3>
+                <p class="muted">Project Gutenberg • Archive.org</p>
+                <div class="card-actions">
+                    <a class="btn" target="_blank" href="https://www.gutenberg.org/">Project Gutenberg</a>
+                    <a class="btn" target="_blank" href="https://archive.org/">Archive.org</a>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="margin-top:1.5rem">Inline Viewer</h2>
+        <p class="muted">If embedding is blocked by the source, use "Open in New Tab".</p>
+
+        <div class="viewer-wrap">
+            <iframe id="viewer" class="viewer" src="" title="Book viewer" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+        </div>
+
+        <p class="note">Note: some sites may block embedding due to cross-origin policies; if that happens the link opens in a new tab.</p>
+    </div>
+
+    <script>
+        function loadViewer(url){
+            const iframe = document.getElementById('viewer');
+            try {
+                iframe.src = url;
+            } catch(e) {
+                window.open(url,'_blank');
+            }
+            setTimeout(()=>{
+                if (!iframe.src || iframe.src === '') {
+                    if (confirm('Embedding may be blocked. Open in a new tab instead?')) window.open(url,'_blank');
+                }
+            }, 1200);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Aparichit - Complaint System</title>
+    <link rel="icon" href="Images/Icon.jpg">
+    <link rel="stylesheet" href="Request.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+        
+        .category-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(50, 0, 0, 0.5);
+            border: 3px solid #ff0000;
+            border-radius: 5px;
+        }
+
+        label {
+            color: #ff8080;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        #category {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ff0000;
+            border: 2px solid #ff0000;
+            font-family: 'Creepster', cursive;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        #category option {
+            background: #000;
+            color: #ff0000;
+            padding: 0.5rem;
+        }
+
+        #category:hover {
+            box-shadow: 0 0 15px #ff0000;
+        }
+
+        .punishment-preview {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(255, 0, 0, 0.1));
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 5px solid #ff0000;
+            color: #ffcccc;
+            font-size: 0.95rem;
+            display: none;
+            border-radius: 3px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .punishment-preview.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .button-group a {
+            flex: 1;
+        }
+
+        .button-group button {
+            width: 100%;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #444, #222) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>गलती की सजा - स्वीकार करो!</h1>
+        <h2>PAAP KI SAJA</h2>
+        <div style="margin-top:0.8rem;">
+            <button id="enableSoundBtn" style="background:linear-gradient(45deg,#222,#550); color:#fff;">Enable Sound</button>
+        </div>
+        <br>
+        <p>गरुड़ पुराण के हिसाब से सबको सजा मिलेगी।</p>
+        <br>
+        <hr>
+        <br>
+        <p>अपना पाप श्रेणी चुनो और समस्या लिखो।</p>
+        <p>अपरिचित न्याय करेगा!</p>
+        <br>
+
+        <div class="category-section">
+            <label for="category">अपना पाप श्रेणी चुनिए:</label>
+            <select id="category">
+                <option value="क्रोध">क्रोध - क्रूरता और हिंसा</option>
+                <option value="लोभ">लोभ - लालच और दैवचिकितसा</option>
+                <option value="काम">काम - वासना और संवेदना</option>
+                <option value="अहंकार">अहंकार - घमंड और गर्व</option>
+                <option value="महज">महज - ईर्ष्या और द्वेष</option>
+                <option value="आलस्य">आलस्य - सुस्ती और निठल्लापन</option>
+                <option value="छल">छल - धोखे और झूठ</option>
+                <option value="अधर्म">अधर्म - सर्वोच्च पाप (अज्ञात)</option>
+            </select>
+
+            <div class="punishment-preview" id="punishmentPreview"></div>
+        </div>
+
+        <p style="color: #ffcccc; font-size: 0.9rem;">अपना नाम, संपर्क और पाप से जुड़ी जानकारी भरें।</p>
+
+        <label for="reporterName">आपका नाम (Reporter Name)</label>
+        <input id="reporterName" type="text" placeholder="आपका पूरा नाम" style="width:100%; padding:0.6rem; margin-top:0.4rem;">
+
+        <label for="reporterEmail">आपका ईमेल (Reporter Email)</label>
+        <input id="reporterEmail" type="email" placeholder="you@example.com" style="width:100%; padding:0.6rem; margin-top:0.4rem;">
+
+        <label for="targetName">जिसका पाप दर्ज कराना है (Target Name)</label>
+        <input id="targetName" type="text" placeholder="वह व्यक्ति/संस्था का नाम" style="width:100%; padding:0.6rem; margin-top:0.4rem;">
+
+        <label for="identifier">पहचान (Phone / Email / ID)</label>
+        <input id="identifier" type="text" placeholder="फोन नंबर, ईमेल या कोई पहचान" style="width:100%; padding:0.6rem; margin-top:0.4rem;">
+
+        <label for="input">पाप का वर्णन (Describe the sin)</label>
+        <textarea id="input" placeholder="अपनी समस्या और पाप को विस्तार से लिखो... कम से कम 10 शब्द लिखना अनिवार्य है।" style="font-size: 1rem;"></textarea>
+
+        <label for="attachments">यदि कोई प्रमाण (चित्र/वीडियो) है तो अपलोड करें (optional)</label>
+        <input id="attachments" type="file" accept="image/*,video/*" style="width:100%; padding:0.4rem; margin-top:0.4rem;">
+        
+        <br> <br>
+
+        <div class="button-group">
+            <a href="Home Page.html">
+                <button class="back-btn">← BACK</button>
+            </a>
+            <button id="submit">SUBMIT COMPLAINT ⚡</button>
+        </div>
+    </div>
+
+    <audio src="Audios/Theme Song.mp3" autoplay loop style="display: none;"></audio>
+    <script src="script.js"></script>
+    <script>
+        // wire up enable sound button (in case script.js not yet invoked)
+        document.addEventListener('DOMContentLoaded', function(){
+            const b = document.getElementById('enableSoundBtn');
+            if (b) b.addEventListener('click', function(){
+                try { localStorage.setItem('aparichitAudioEnabled','1'); const v = document.querySelector('video'); if (v) { v.muted = false; v.play().catch(()=>{}); } const a = document.querySelector('audio'); if (a) { a.muted = false; a.play().catch(()=>{}); } alert('Sound enabled (may require browser permission).'); } catch(e){}
+            });
+        });
+    </script>
+</body>
+</html>

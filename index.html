@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+    <title>अपरिचित - APARICHIT</title>
+    <link rel="icon" href="Images/Icon.jpg">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            background: linear-gradient(45deg, #000 0%, #1a0000 50%, #000 100%);
+            background-size: 400% 400%;
+            animation: hellGlow 8s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Creepster', cursive;
+            overflow: hidden;
+        }
+
+        @keyframes hellGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #8b0000, 0 0 30px #ff0000; }
+            50% { text-shadow: 0 0 20px #ff0000, 0 0 40px #8b0000, 0 0 60px #ff0000; }
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.7; }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            height: 60px;
+            width: 200px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Creepster', cursive;
+            padding: 0.5rem;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff0000, #8b0000);
+            color: #000;
+            border: 3px solid #ff0000;
+            margin-top: 2rem;
+            animation: pulse 2s ease-in-out infinite, flicker 3s ease-in-out infinite;
+            box-shadow: 0 0 20px #ff0000, inset 0 0 10px #8b0000;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        button:hover {
+            box-shadow: 0 0 40px #ff0000, 0 0 60px #ff0000, inset 0 0 20px #8b0000;
+            transform: scale(1.1);
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .warning-text {
+            color: #ff0000;
+            font-size: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px #ff0000;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-text">⚠ आपका न्याय शुरू होता है ⚠</div>
+    <a href="Home Page.html">
+        <button>👁 ENTER 👁</button>
+    </a>
+</body>
+</html>

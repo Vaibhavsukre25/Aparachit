@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Aparichit - Home</title>
+    <link rel="icon" href="Images/Icon.jpg">
+    <link rel="stylesheet" href="Home Page.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+        .admin-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(139, 0, 0, 0.3);
+            border: 2px dashed #ff0000;
+            border-radius: 5px;
+        }
+
+        .admin-section p {
+            color: #ffaa66;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .database-btn {
+            background: linear-gradient(45deg, #ffcc00, #ff8800) !important;
+            color: #000 !important;
+            font-weight: bold;
+            padding: 0.6rem 1.2rem !important;
+            margin: 0.5rem;
+        }
+
+        .database-btn:hover {
+            box-shadow: 0 0 20px #ffcc00, 0 0 40px #ff8800;
+        }
+
+        .sin-counter {
+            background: rgba(255, 0, 0, 0.2);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            color: #ffaa66;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>अपरिचित</h1>
+
+    <br>
+
+    <hr>
+
+    <br>
+
+    <div class="box">
+
+        <div class="box-1">
+
+            <p class="intro">
+                कलयुग अपने अंतिम चरण पर पहुँच चुका है। <br> <br>
+                पाप का घड़ा भर चुका है। <br> <br>
+                सबको अपने पापों का प्रायश्चित करवाने अपरिचित आ रहा है।
+            </p>
+
+            <div class="sin-counter" id="sinCounter">
+                📊 कुल दर्ज शिकायतें: <strong id="complaintCount">0</strong>
+            </div>
+
+            <br>
+
+            <a href="Request.html">
+                <button>SUBMIT COMPLAINT</button>
+            </a>
+
+            <div class="admin-section" id="adminSection" style="display:none;">
+                <p>⚙ ADMIN CONSOLE</p>
+                <button class="database-btn" onclick="viewComplaintDatabase()">📋 VIEW DATABASE</button>
+                <button class="database-btn" onclick="viewComplaintStats()">📊 STATISTICS</button>
+                <button class="database-btn" onclick="exportData()">💾 EXPORT DATA</button>
+            </div>
+
+            <div style="margin-top:1rem;">
+                <button onclick="promptAdmin()" title="Admin" style="background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.08); padding:6px 10px; border-radius:6px;">⚙</button>
+                <button onclick="enableAudio()" style="margin-left:0.5rem;">Enable Sound</button>
+            </div>
+
+            <div class="books-section" style="margin-top:1.5rem; padding:1rem; border:1px dashed rgba(255,255,255,0.05); border-radius:6px; background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);">
+                <h3 style="color:#ffcc66; margin:0 0 0.4rem 0;">📚 Books & Texts</h3>
+                <p style="color:#ddd; margin:0 0 0.6rem 0;">Quick access to scriptures — Garuda Purana, Ramayana, Mahabharata and more.</p>
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center">
+                    <a class="database-btn" href="books.html">Open Book Library</a>
+                    <button onclick="loadQuickBook('https://www.sacred-texts.com/hin/gp/index.htm')">Garuda Purana</button>
+                    <button onclick="loadQuickBook('https://www.sacred-texts.com/hin/ramayana/index.htm')">Ramayana</button>
+                    <button onclick="loadQuickBook('https://www.sacred-texts.com/hin/maha/index.htm')">Mahabharata</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="box-2">
+
+            <video src="Videos/Video 1.mp4" autoplay muted></video>
+            
+        </div>
+
+    </div>
+
+    <script>
+        // Update complaint counter on load
+        function updateCounter() {
+            const complaints = JSON.parse(localStorage.getItem('aparichitComplaints') || '[]');
+            document.getElementById('complaintCount').textContent = complaints.length;
+        }
+
+        function viewComplaintDatabase() {
+            const complaints = JSON.parse(localStorage.getItem('aparichitComplaints') || '[]');
+            
+            if (complaints.length === 0) {
+                alert('अभी तक कोई शिकायत दर्ज नहीं है। पहली शिकायत दर्ज करें!');
+                return;
+            }
+
+            let message = `कुल शिकायतें: ${complaints.length}\n\n`;
+            message += '═══════════════════════════════════════\n\n';
+            
+            complaints.forEach((complaint, index) => {
+                message += `${index + 1}. पाप: ${complaint.category}\n`;
+                message += `   समय: ${complaint.timestamp}\n`;
+                message += `   गंभीरता: ${complaint.severity}/10\n`;
+                message += `   स्थिति: ${complaint.status}\n`;
+                message += `   शिकायत: "${complaint.text.substring(0, 50)}..."\n\n`;
+            });
+
+            alert(message);
+            // Also log to console for detailed view
+            console.log('Complete Complaint Database:', complaints);
+        }
+
+        function viewComplaintStats() {
+            const analytics = JSON.parse(localStorage.getItem('aparichitAnalytics') || '{}');
+            const complaints = JSON.parse(localStorage.getItem('aparichitComplaints') || '[]');
+            
+            let stats = '📊 पाप आंकड़े (SIN STATISTICS)\n\n';
+            stats += '═══════════════════════════════════════\n\n';
+            
+            Object.keys(analytics).forEach(category => {
+                stats += `${category}: ${analytics[category]} शिकायतें\n`;
+            });
+            
+            stats += `\nकुल गंभीरता स्कोर: ${complaints.reduce((sum, c) => sum + c.severity, 0)}\n`;
+            stats += `औसत गंभीरता: ${(complaints.reduce((sum, c) => sum + c.severity, 0) / (complaints.length || 1)).toFixed(2)}\n`;
+
+            alert(stats);
+            console.log('Analytics:', analytics);
+        }
+
+        function exportData() {
+            const complaints = JSON.parse(localStorage.getItem('aparichitComplaints') || '[]');
+            const analytics = JSON.parse(localStorage.getItem('aparichitAnalytics') || '{}');
+            
+            const exportData = {
+                exportDate: new Date().toISOString(),
+                totalComplaints: complaints.length,
+                complaints: complaints,
+                analytics: analytics
+            };
+
+            const jsonString = JSON.stringify(exportData, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Aparichit_Complaints_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            alert('Data exported successfully! Check your downloads folder.');
+        }
+
+        // Load counter on page load
+        window.addEventListener('load', updateCounter);
+        // Update counter every 5 seconds
+        setInterval(updateCounter, 5000);
+
+        // Admin prompt and auth
+        function promptAdmin() {
+            const pwd = prompt('Enter admin password:');
+            if (!pwd) return;
+            // change this password as needed
+            if (pwd === 'aparichit@2026') {
+                localStorage.setItem('aparichitAdminAuth', '1');
+                document.getElementById('adminSection').style.display = 'block';
+                alert('Admin access granted');
+            } else {
+                alert('Invalid password');
+            }
+        }
+
+        // Check on load
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('aparichitAdminAuth')) {
+                const el = document.getElementById('adminSection'); if (el) el.style.display = 'block';
+            }
+        });
+
+        // Expose enableAudio to this page
+        function enableAudio() { try { localStorage.setItem('aparichitAudioEnabled','1'); const v = document.querySelector('video'); if (v) { v.muted = false; v.play().catch(()=>{}); } const a = document.querySelector('audio'); if (a) { a.muted = false; a.play().catch(()=>{}); } } catch(e){} }
+
+        // Quick book loader from Home page
+        function loadQuickBook(url) {
+            // open in new tab; embedding may be blocked
+            window.open(url, '_blank');
+        }
+    </script>
+
+</body>
+
+</html>
